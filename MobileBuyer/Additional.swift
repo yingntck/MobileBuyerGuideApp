@@ -15,5 +15,4 @@ extension UIImageView {
     func loadImageUrl(_ urlString:String) {
         self.af_setImage(withURL: URL(string: urlString)!)
     }
-    
 }

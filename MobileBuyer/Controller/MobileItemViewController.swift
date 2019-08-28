@@ -124,5 +124,4 @@ class MobileItemViewController: UITableViewController {
     }))
     self.present(alert, animated: true, completion: nil)
   }
-  
 }

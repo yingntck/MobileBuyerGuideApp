@@ -11,16 +11,17 @@ import Foundation
 
 class MobileTableViewCell: UITableViewCell {
   
+  var mImageStar:UIImage!
+  var isTapped:Bool!
+  var mobileVC:MobileItemViewController!
+  var index: Int!
+  
   @IBOutlet weak var ImageView: UIImageView!
   @IBOutlet weak var nameLabel: UILabel!
   @IBOutlet weak var detailLabel: UILabel!
   @IBOutlet weak var priceLabel: UILabel!
   @IBOutlet weak var raitingLabel: UILabel!
   @IBOutlet weak var starBtn: UIButton!
-  var mImageStar:UIImage!
-  var isTapped:Bool!
-  var mobileVC:MobileItemViewController!
-  var index: Int!
   
   override func awakeFromNib() {
     super.awakeFromNib()
@@ -50,11 +51,10 @@ class MobileTableViewCell: UITableViewCell {
       starBtn.setImage(mImageStar, for: .normal)
       self.isTapped = true
     }
-    //        mobileVC.addCellToFavourite(cell: self)
+      mobileVC.addCellToFavourite(cell: self)
   }
   
 //    @IBAction func favTapped(_ sender: Any) {
 //      print("Fav")
 //    }
-  
 }

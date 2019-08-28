@@ -13,37 +13,17 @@
         <!--View Controller-->
         <scene sceneID="R2l-Ao-VgB">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="8QJ-go-5SZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController id="f05-jr-PTc" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="2Ca-Tl-TgZ">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ogE-LO-dlT">
-                                <rect key="frame" x="153" y="188" width="30" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="All"/>
-                                <connections>
-                                    <segue destination="Aah-Ha-gGT" kind="show" id="HKf-8L-qOU"/>
-                                </connections>
-                            </button>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <viewLayoutGuide key="safeArea" id="ENA-Ce-Rt3"/>
                     </view>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="8QJ-go-5SZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="42" y="27"/>
-        </scene>
-        <!--MobileItem-->
-        <scene sceneID="ZJw-Xb-Zj7">
-            <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="dRf-Xi-thR" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewControllerPlaceholder storyboardName="MobileItem" id="Aah-Ha-gGT" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="All" id="XH3-97-fVu"/>
-                </viewControllerPlaceholder>
-            </objects>
-            <point key="canvasLocation" x="668" y="27"/>
         </scene>
     </scenes>
 </document>

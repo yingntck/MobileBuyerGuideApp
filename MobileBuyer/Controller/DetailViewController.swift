@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DetailViewController: UIViewController {
+class DetailViewController: UIViewController, UICollectionViewDataSource,  UICollectionViewDelegate{
   
   var name: String = "ssssss"
   var detail: String = ""
@@ -16,7 +16,6 @@ class DetailViewController: UIViewController {
   var raiting: Double = 0.0
   var id: Int = 0
   var pic: Picture!
-  
   
   @IBOutlet weak var raitingLabel: UILabel!
   @IBOutlet weak var detailLabel: UILabel!
@@ -31,7 +30,10 @@ class DetailViewController: UIViewController {
     priceLabel.text = "Price: $\(price)"
     titleName.title = name
     id = 1
+    
     feedPicData()
+    mCollectionView.delegate = self
+    mCollectionView.dataSource = self
   }
   
   func feedPicData() {
@@ -45,7 +47,7 @@ class DetailViewController: UIViewController {
   }
 }
 
-extension DetailViewController: UICollectionViewDataSource {
+extension DetailViewController {
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
     if let count = self.pic?.count {
       return count
