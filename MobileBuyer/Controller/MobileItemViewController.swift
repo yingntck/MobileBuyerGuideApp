@@ -18,6 +18,8 @@ class MobileItemViewController: UITableViewController {
   var dataInfo:[MobileElement] = []
   var favInfo:[MobileElement] = []
   var indexItem: Int = 0
+  var favId:[Int] = []
+  var isFav: Bool!
   
   let _url = "https://scb-test-mobile.herokuapp.com/api/mobiles/"
   
@@ -72,8 +74,24 @@ class MobileItemViewController: UITableViewController {
     return cell!
   }
   
-  func addCellToFavourite(cell: UITableViewCell) {
-    
+  func addCellToFavourite(cell: UITableViewCell, isFav: Bool) {
+    let favCell = mTableView.indexPath(for: cell)
+    let index = favCell?.row
+    let item = dataInfo[index!].id
+//    print("favCell: \(favCell!)")
+    if isFav {
+//      print("isFav == true")
+      let index = favId.firstIndex(of: self.dataInfo[index!].id)
+      favId.remove(at: index!)
+    } else {
+//      print("isFav == false")
+      favId.append(item)
+    }
+    print(favId)
+//    favInfo.removeAll()
+//    for i in favId{
+//      favInfo.append(((dataInfo[i-1])))
+//    }
   }
   
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

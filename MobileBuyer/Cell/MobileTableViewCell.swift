@@ -51,7 +51,7 @@ class MobileTableViewCell: UITableViewCell {
       starBtn.setImage(mImageStar, for: .normal)
       self.isTapped = true
     }
-      mobileVC.addCellToFavourite(cell: self)
+      mobileVC.addCellToFavourite(cell: self, isFav: isTapped)
   }
   
 //    @IBAction func favTapped(_ sender: Any) {
