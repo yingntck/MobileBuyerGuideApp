@@ -20,7 +20,7 @@ class MobileTableViewCell: UITableViewCell {
   var mImageStar:UIImage!
   var mWhenTap:Bool!
   var mobileVC:MobileItemViewController!
-  
+  var index: Int!
   
   override func awakeFromNib() {
     super.awakeFromNib()
@@ -41,6 +41,8 @@ class MobileTableViewCell: UITableViewCell {
   
   @objc
   func handleMarkFavorite() {
+//    print("fav index \(index ?? 0) is tapped")
+    print(mobileVC.dataInfo[index])
     if mWhenTap {
       mImageStar  = UIImage(named: "star-tap.png")!
       starBtn.setImage(mImageStar, for: .normal)
@@ -52,5 +54,10 @@ class MobileTableViewCell: UITableViewCell {
     }
     //        mobileVC.addCellToFavourite(cell: self)
   }
+  
+//  @IBAction func favTapped(_ sender: Any) {
+//    print("Fav")
+//  }
+  
   
 }

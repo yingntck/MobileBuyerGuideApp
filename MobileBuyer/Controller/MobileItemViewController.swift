@@ -16,6 +16,9 @@ class MobileItemViewController: UITableViewController {
   @IBOutlet weak var mTableView: UITableView!
   
   var dataInfo:[MobileElement] = []
+  var indexItem: Int = 0
+  
+  
   let _url = "https://scb-test-mobile.herokuapp.com/api/mobiles/"
   
   override func viewDidLoad() {
@@ -23,29 +26,29 @@ class MobileItemViewController: UITableViewController {
     
     FeedData.shared.feed(url: _url) { (result) in
       for i in result {
-        let newBean = MobileElement(rating: i.rating, id: i.id, thumbImageURL: i.thumbImageURL, price: i.price, brand: i.brand, name: i.name, mobileDescription: i.mobileDescription)
+        let newBean = MobileElement(rating: i.rating, id: i.id, thumbImageURL: i.thumbImageURL, price: i.price, brand: i.brand, name: i.name, mobileDescription: i.mobileDescription, isFav: false)
         self.dataInfo.append(newBean)
       }
       self.mTableView.reloadData()
-//      print (self.dataInfo.count)
+      //      print (self.dataInfo.count)
     }
   }
   
-  @IBAction func sortBtn(_ sender: Any) {
-    print("clicked")
-  }
-  
-  @IBAction func starBtn(_ sender: Any) {
-    print("click star")
-  }
-  
-  @IBAction func allBtn(_ sender: Any) {
-    print("click all")
-  }
-  
-  @IBAction func favBtn(_ sender: Any) {
-    print("click fav")
-  }
+  //  @IBAction func sortBtn(_ sender: Any) {
+  //    print("clicked")
+  //  }
+  //
+  //  @IBAction func starBtn(_ sender: Any) {
+  //    print("click star")
+  //  }
+  //
+  //  @IBAction func allBtn(_ sender: Any) {
+  //    print("click all")
+  //  }
+  //
+  //  @IBAction func favBtn(_ sender: Any) {
+  //    print("click fav")
+  //  }
   
   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return dataInfo.count
@@ -55,6 +58,8 @@ class MobileItemViewController: UITableViewController {
     let cell = tableView.dequeueReusableCell(withIdentifier: "mobileCell") as? MobileTableViewCell
     let item = self.dataInfo[indexPath.row]
     
+    cell?.mobileVC = self
+    cell?.index = indexPath.row
     cell?.nameLabel.text = item.name
     cell?.detailLabel.text = item.mobileDescription
     cell?.priceLabel.text = "Price: $\(item.price)"
@@ -68,14 +73,23 @@ class MobileItemViewController: UITableViewController {
     
   }
   
+  override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    if segue.identifier == "showDetail" {
+      if let vc = segue.destination as? DetailViewController {
+        let item = dataInfo[indexItem]
+        vc.detail = item.mobileDescription
+        vc.price = item.price
+        vc.raiting = item.rating
+      }
+    }
+  }
   
-  //    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-  //        print("Selected Row: \(indexPath.row)")
-  //        self.mTableView.deselectRow(at: indexPath, animated: true)
   
-  //        let item = self.dataInfo[indexPath.row]
-  //        let vc = XCDYouTubeVideoPlayerViewController(videoIdentifier: item.id)
-  //        self.present(vc, animated: true, completion: nil)
-  //    }
+  override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    print("Selected Row: \(indexPath.row)")
+    self.mTableView.deselectRow(at: indexPath, animated: true)
+    indexItem = indexPath.row
+    performSegue(withIdentifier: "showDetail", sender: nil)
+  }
   
 }

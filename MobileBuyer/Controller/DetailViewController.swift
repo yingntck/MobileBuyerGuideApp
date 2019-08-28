@@ -9,13 +9,21 @@
 import UIKit
 
 class DetailViewController: UIViewController {
+    
+  var detail: String = ""
+  var price: Double = 0.0
+  var raiting: Double = 0.0
   
-  @IBOutlet weak var nameBar: UINavigationItem!
+  
+  @IBOutlet weak var raitingLabel: UILabel!
+  @IBOutlet weak var detailLabel: UILabel!
+  @IBOutlet weak var priceLabel: UILabel!
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
-    // Do any additional setup after loading the view.
+    detailLabel.text = detail
+    raitingLabel.text = "Raiting: \(raiting)"
+    priceLabel.text = "Price: $\(price)"
   }
   
   
