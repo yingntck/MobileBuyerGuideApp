@@ -10,25 +10,28 @@ import Alamofire
 import Foundation
 
 class FeedData{
-    func feed(url: String, completion: @escaping ([MobileElement]) -> Void) {
-        AF.request(URL(string: url)!, method: .get).responseJSON { response in
-            print(response)
-            switch response.result {
-            case .success:
-                do {
-                    let decoder = JSONDecoder()
-                    let result = try decoder.decode([MobileElement].self, from: response.data!)
-                    completion(result)
-                    print("success")
-                } catch {
-                    print("catch")
-                }
-                break
-            case let .failure(error):
-                print(error)
-                break
-            }
+  
+  static var shared = FeedData() // Single ton
+  
+  func feed(url: String, completion: @escaping ([MobileElement]) -> Void) {
+    AF.request(URL(string: url)!, method: .get).responseJSON { response in
+      print(response)
+      switch response.result {
+      case .success:
+        do {
+          let decoder = JSONDecoder()
+          let result = try decoder.decode([MobileElement].self, from: response.data!)
+          completion(result)
+//          print("success")
+        } catch {
+//          print("catch")
         }
+        break
+      case let .failure(error):
+        print(error)
+        break
+      }
     }
+  }
 }
 
