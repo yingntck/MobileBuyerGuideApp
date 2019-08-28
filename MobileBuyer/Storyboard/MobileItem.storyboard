@@ -25,6 +25,9 @@
                                     <rect key="frame" x="88" y="4" width="30" height="36"/>
                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                     <state key="normal" title="All"/>
+                                    <connections>
+                                        <action selector="allBtn:" destination="DlW-y2-3Tu" eventType="touchUpInside" id="J0S-QP-8kE"/>
+                                    </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1y9-bA-zGZ">
                                     <rect key="frame" x="257" y="4" width="77" height="36"/>
@@ -32,6 +35,7 @@
                                     <state key="normal" title="Favorite"/>
                                     <connections>
                                         <action selector="favBtn:" destination="OlT-uP-oAw" eventType="touchUpInside" id="DGd-j5-hHz"/>
+                                        <action selector="favBtn:" destination="DlW-y2-3Tu" eventType="touchUpInside" id="GaO-Hh-bhK"/>
                                     </connections>
                                 </button>
                             </subviews>

@@ -19,39 +19,40 @@ class MobileItemViewController: UITableViewController {
   var favInfo:[MobileElement] = []
   var indexItem: Int = 0
   
-  
   let _url = "https://scb-test-mobile.herokuapp.com/api/mobiles/"
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    
-    FeedData.shared.feed(url: _url) { (result) in
-      for i in result {
-        let newBean = MobileElement(rating: i.rating, id: i.id, thumbImageURL: i.thumbImageURL, price: i.price, brand: i.brand, name: i.name, mobileDescription: i.mobileDescription, isFav: false)
-        self.dataInfo.append(newBean)
-      }
-      self.mTableView.reloadData()
-      //      print (self.dataInfo.count)
-    }
+    feedData()
   }
   
   @IBAction func sortBtn(_ sender: Any) {
-//    print("sort clicked")
     showSortAlert()
   }
-  //
+  
   //  @IBAction func starBtn(_ sender: Any) {
   //    print("click star")
   //  }
-  //
-  //  @IBAction func allBtn(_ sender: Any) {
-  //    print("click all")
-  //  }
-  //
-  //  @IBAction func favBtn(_ sender: Any) {
-  //    print("click fav")
-  //  }
   
+    @IBAction func allBtn(_ sender: Any) {
+//      print("all clicked")
+      mTableView.reloadData()
+    }
+  
+    @IBAction func favBtn(_ sender: Any) {
+      print("fav clicked")
+    }
+  
+  func feedData() {
+    FeedData.shared.feed(url: _url) { (result) in
+      for i in result {
+        let newItem = MobileElement(rating: i.rating, id: i.id, thumbImageURL: i.thumbImageURL, price: i.price, brand: i.brand, name: i.name, mobileDescription: i.mobileDescription, isFav: false)
+        self.dataInfo.append(newItem)
+      }
+      self.mTableView.reloadData()
+//      print (self.dataInfo.count)
+    }
+  }
   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     return dataInfo.count
   }
@@ -82,7 +83,8 @@ class MobileItemViewController: UITableViewController {
         vc.detail = item.mobileDescription
         vc.price = item.price
         vc.raiting = item.rating
-        vc.id = item.id
+//        vc.titleName = item.name
+//        vc.id = item.id
       }
     }
   }

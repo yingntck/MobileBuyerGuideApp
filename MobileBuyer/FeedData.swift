@@ -38,14 +38,13 @@ class FeedData{
     AF.request(URL(string: url)!, method: .get).responseJSON { response in
 //      print(response)
       switch response.result {
-      case let .success(value):
-//        print(value)
+      case .success:
         do {
           let decoder = JSONDecoder()
           let result = try decoder.decode(Picture.self, from: response.data!)
           completion(result)
-          print("success feed")
-          print("sucess api \(response.description)")
+//          print("success feed")
+//          print("sucess api \(response.description)")
         } catch let error {
           print("error case success")
           print(error)

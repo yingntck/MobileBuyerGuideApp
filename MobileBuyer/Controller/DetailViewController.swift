@@ -9,7 +9,8 @@
 import UIKit
 
 class DetailViewController: UIViewController {
-    
+  
+  var name: String = "ssssss"
   var detail: String = ""
   var price: Double = 0.0
   var raiting: Double = 0.0
@@ -21,12 +22,14 @@ class DetailViewController: UIViewController {
   @IBOutlet weak var detailLabel: UILabel!
   @IBOutlet weak var priceLabel: UILabel!
   @IBOutlet weak var mCollectionView: UICollectionView!
+  @IBOutlet weak var titleName: UINavigationItem!
   
   override func viewDidLoad() {
     super.viewDidLoad()
     detailLabel.text = detail
     raitingLabel.text = "Raiting: \(raiting)"
     priceLabel.text = "Price: $\(price)"
+    titleName.title = name
     id = 1
     feedPicData()
   }

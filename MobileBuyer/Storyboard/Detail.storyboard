@@ -10,7 +10,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Detail View Controller-->
+        <!--Title-->
         <scene sceneID="2b4-dd-F59">
             <objects>
                 <viewController id="i1w-L8-bvS" customClass="DetailViewController" customModule="MobileBuyer" customModuleProvider="target" sceneMemberID="viewController">
@@ -100,12 +100,14 @@
                         <viewLayoutGuide key="safeArea" id="fmD-oN-xBN"/>
                     </view>
                     <toolbarItems/>
+                    <navigationItem key="navigationItem" title="Title" id="tph-B7-7oc"/>
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="detailLabel" destination="Gx0-Ql-Hgy" id="MaN-lv-ez1"/>
                         <outlet property="mCollectionView" destination="m78-Fh-IPa" id="ybr-oc-WMA"/>
                         <outlet property="priceLabel" destination="rN1-jj-sFC" id="Bg3-yP-8Dh"/>
                         <outlet property="raitingLabel" destination="bRg-UX-gWe" id="TZS-Z6-7Pc"/>
+                        <outlet property="titleName" destination="tph-B7-7oc" id="K46-3I-8b6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3DI-g6-6FJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
