@@ -15,7 +15,7 @@ class FeedData{
   
   func feed(url: String, completion: @escaping ([MobileElement]) -> Void) {
     AF.request(URL(string: url)!, method: .get).responseJSON { response in
-      print(response)
+//      print(response)
       switch response.result {
       case .success:
         do {

@@ -130,7 +130,7 @@
                     <navigationItem key="navigationItem" id="qmy-H8-eRN">
                         <barButtonItem key="rightBarButtonItem" title="Sort" id="Baa-HR-wES">
                             <connections>
-                                <action selector="sortBtn:" destination="OlT-uP-oAw" id="Vvs-W9-u6R"/>
+                                <action selector="sortBtn:" destination="DlW-y2-3Tu" id="Nwm-cJ-NcE"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
