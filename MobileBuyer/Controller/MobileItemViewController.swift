@@ -16,6 +16,7 @@ class MobileItemViewController: UITableViewController {
   @IBOutlet weak var mTableView: UITableView!
   
   var dataInfo:[MobileElement] = []
+  var favInfo:[MobileElement] = []
   var indexItem: Int = 0
   
   

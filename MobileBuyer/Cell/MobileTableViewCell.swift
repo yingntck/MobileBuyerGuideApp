@@ -41,13 +41,13 @@ class MobileTableViewCell: UITableViewCell {
   
   @objc
   func handleMarkFavorite() {
-//    print("fav index \(index ?? 0) is tapped")
+    //    print("fav index \(index ?? 0) is tapped")
     print(mobileVC.dataInfo[index])
     if mWhenTap {
       mImageStar  = UIImage(named: "star-tap.png")!
       starBtn.setImage(mImageStar, for: .normal)
       self.mWhenTap = false
-    }else{
+    } else {
       mImageStar  = UIImage(named: "star.png")!
       starBtn.setImage(mImageStar, for: .normal)
       self.mWhenTap = true
@@ -55,9 +55,9 @@ class MobileTableViewCell: UITableViewCell {
     //        mobileVC.addCellToFavourite(cell: self)
   }
   
-//  @IBAction func favTapped(_ sender: Any) {
-//    print("Fav")
-//  }
+  //  @IBAction func favTapped(_ sender: Any) {
+  //    print("Fav")
+  //  }
   
   
 }
