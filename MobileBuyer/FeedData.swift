@@ -15,19 +15,44 @@ class FeedData{
   
   func feed(url: String, completion: @escaping ([MobileElement]) -> Void) {
     AF.request(URL(string: url)!, method: .get).responseJSON { response in
-//      print(response)
+      //      print(response)
       switch response.result {
       case .success:
         do {
           let decoder = JSONDecoder()
           let result = try decoder.decode([MobileElement].self, from: response.data!)
           completion(result)
-//          print("success")
+          //          print("success")
         } catch {
-//          print("catch")
+          //          print("catch")
         }
         break
       case let .failure(error):
+        print(error)
+        break
+      }
+    }
+  }
+  
+  func getPicture(url: String, completion: @escaping (Picture) -> Void) {
+    AF.request(URL(string: url)!, method: .get).responseJSON { response in
+//      print(response)
+      switch response.result {
+      case let .success(value):
+//        print(value)
+        do {
+          let decoder = JSONDecoder()
+          let result = try decoder.decode(Picture.self, from: response.data!)
+          completion(result)
+          print("success feed")
+          print("sucess api \(response.description)")
+        } catch let error {
+          print("error case success")
+          print(error)
+        }
+        break
+      case let .failure(error):
+        print("error case failure")
         print(error)
         break
       }

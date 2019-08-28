@@ -82,6 +82,7 @@ class MobileItemViewController: UITableViewController {
         vc.detail = item.mobileDescription
         vc.price = item.price
         vc.raiting = item.rating
+        vc.id = item.id
       }
     }
   }

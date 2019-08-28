@@ -31,7 +31,7 @@
                                     <inset key="sectionInset" minX="10" minY="10" maxX="10" maxY="10"/>
                                 </collectionViewFlowLayout>
                                 <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="xze-lQ-JWX" customClass="DetailCollectionViewCell" customModule="MobileBuyer" customModuleProvider="target">
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="collectionCell" id="xze-lQ-JWX" customClass="DetailCollectionViewCell" customModule="MobileBuyer" customModuleProvider="target">
                                         <rect key="frame" x="10" y="-9.5" width="223" height="248"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
@@ -50,7 +50,7 @@
                                             <constraint firstAttribute="trailing" secondItem="qWC-mv-Qa8" secondAttribute="trailing" id="jfk-du-4OR"/>
                                         </constraints>
                                         <connections>
-                                            <outlet property="mCollectionView" destination="qWC-mv-Qa8" id="4Up-G1-95k"/>
+                                            <outlet property="mCollectionImageView" destination="qWC-mv-Qa8" id="4Up-G1-95k"/>
                                         </connections>
                                     </collectionViewCell>
                                 </cells>
@@ -103,6 +103,7 @@
                     <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="detailLabel" destination="Gx0-Ql-Hgy" id="MaN-lv-ez1"/>
+                        <outlet property="mCollectionView" destination="m78-Fh-IPa" id="ybr-oc-WMA"/>
                         <outlet property="priceLabel" destination="rN1-jj-sFC" id="Bg3-yP-8Dh"/>
                         <outlet property="raitingLabel" destination="bRg-UX-gWe" id="TZS-Z6-7Pc"/>
                     </connections>

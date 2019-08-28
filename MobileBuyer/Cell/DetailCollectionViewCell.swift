@@ -10,6 +10,6 @@ import UIKit
 
 class DetailCollectionViewCell: UICollectionViewCell {
   
-  @IBOutlet weak var mCollectionView: UIImageView!
+  @IBOutlet weak var mCollectionImageView: UIImageView!
   
 }
