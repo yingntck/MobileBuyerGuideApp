@@ -15,6 +15,7 @@ class MobileItemViewController: UITableViewController {
   
   @IBOutlet weak var mTableView: UITableView!
   
+  var info: Mobile!
   var dataInfo:[MobileElement] = []
   var favInfo:[MobileElement] = []
   var indexItem: Int = 0
@@ -43,6 +44,8 @@ class MobileItemViewController: UITableViewController {
   
     @IBAction func favBtn(_ sender: Any) {
       print("fav clicked")
+      info = favInfo
+      mTableView.reloadData()
     }
   
   func feedData() {
@@ -81,7 +84,7 @@ class MobileItemViewController: UITableViewController {
 //    print("favCell: \(favCell!)")
     if isFav {
 //      print("isFav == true")
-      let index = favId.firstIndex(of: self.dataInfo[index!].id)
+      let index = favId.firstIndex(of: item)
       favId.remove(at: index!)
     } else {
 //      print("isFav == false")
@@ -101,8 +104,8 @@ class MobileItemViewController: UITableViewController {
         vc.detail = item.mobileDescription
         vc.price = item.price
         vc.raiting = item.rating
-//        vc.titleName = item.name
-//        vc.id = item.id
+        vc.titleName.title = item.name
+        vc.idUser = item.id
       }
     }
   }

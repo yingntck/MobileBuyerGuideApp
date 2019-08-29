@@ -10,11 +10,11 @@ import UIKit
 
 class DetailViewController: UIViewController, UICollectionViewDataSource,  UICollectionViewDelegate{
   
-  var name: String = "ssssss"
-  var detail: String = ""
+  var name: String?
+  var detail: String?
   var price: Double = 0.0
   var raiting: Double = 0.0
-  var id: Int = 0
+  var idUser: Int = 0
   var pic: Picture!
   
   @IBOutlet weak var raitingLabel: UILabel!
@@ -29,7 +29,7 @@ class DetailViewController: UIViewController, UICollectionViewDataSource,  UICol
     raitingLabel.text = "Raiting: \(raiting)"
     priceLabel.text = "Price: $\(price)"
     titleName.title = name
-    id = 1
+    
     
     feedPicData()
     mCollectionView.delegate = self
@@ -37,7 +37,7 @@ class DetailViewController: UIViewController, UICollectionViewDataSource,  UICol
   }
   
   func feedPicData() {
-    let _url = "https://scb-test-mobile.herokuapp.com/api/mobiles/\(id)/images//"
+    let _url = "https://scb-test-mobile.herokuapp.com/api/mobiles/\(idUser)/images//"
     
     FeedData.shared.getPicture(url: _url) { (result) in
       self.pic = result
