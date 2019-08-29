@@ -17,10 +17,11 @@ class MobileItemViewController: UITableViewController {
   
   var info: Mobile!
   var dataInfo:[MobileElement] = []
-  var favInfo:[MobileElement] = []
+//  var favInfo:[MobileElement] = []
   var indexItem: Int = 0
   var favId:[Int] = []
   var isFav: Bool!
+  var isFavMode = false
   
   let _url = "https://scb-test-mobile.herokuapp.com/api/mobiles/"
   
@@ -39,12 +40,14 @@ class MobileItemViewController: UITableViewController {
   
     @IBAction func allBtn(_ sender: Any) {
 //      print("all clicked")
+      isFavMode = false
       mTableView.reloadData()
+      
     }
   
     @IBAction func favBtn(_ sender: Any) {
       print("fav clicked")
-      info = favInfo
+      isFavMode = true
       mTableView.reloadData()
     }
   
@@ -59,22 +62,52 @@ class MobileItemViewController: UITableViewController {
     }
   }
   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    if isFavMode {
+      let displayFav = dataInfo.filter {
+        return favId.contains($0.id)
+      }
+      return displayFav.count
+    }
     return dataInfo.count
   }
   
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+    
     let cell = tableView.dequeueReusableCell(withIdentifier: "mobileCell") as? MobileTableViewCell
-    let item = self.dataInfo[indexPath.row]
     
-    cell?.mobileVC = self
-    cell?.index = indexPath.row
-    cell?.nameLabel.text = item.name
-    cell?.detailLabel.text = item.mobileDescription
-    cell?.priceLabel.text = "Price: $\(item.price)"
-    cell?.raitingLabel.text = "Raiting: \(item.rating)"
-    cell?.ImageView.loadImageUrl(item.thumbImageURL)
-    
-    return cell!
+    if isFavMode {
+      
+      let displayFav = dataInfo.filter {
+        return favId.contains($0.id)
+      }
+      
+      let item = displayFav[indexPath.row]
+
+      cell?.mobileVC = self
+      cell?.index = indexPath.row
+      cell?.nameLabel.text = item.name
+      cell?.detailLabel.text = item.mobileDescription
+      cell?.priceLabel.text = "Price: $\(item.price)"
+      cell?.raitingLabel.text = "Raiting: \(item.rating)"
+      cell?.ImageView.loadImageUrl(item.thumbImageURL)
+      cell?.starBtn.isHidden = true
+      
+      return cell!
+    } else {
+      let item = self.dataInfo[indexPath.row]
+      
+      cell?.mobileVC = self
+      cell?.index = indexPath.row
+      cell?.nameLabel.text = item.name
+      cell?.detailLabel.text = item.mobileDescription
+      cell?.priceLabel.text = "Price: $\(item.price)"
+      cell?.raitingLabel.text = "Raiting: \(item.rating)"
+      cell?.ImageView.loadImageUrl(item.thumbImageURL)
+      cell?.starBtn.isHidden = false
+      cell?.updateStar(isFav: favId.contains(item.id))
+      
+      return cell!
+    }
   }
   
   func addCellToFavourite(cell: UITableViewCell, isFav: Bool) {
@@ -84,16 +117,31 @@ class MobileItemViewController: UITableViewController {
 //    print("favCell: \(favCell!)")
     if isFav {
 //      print("isFav == true")
-      let index = favId.firstIndex(of: item)
-      favId.remove(at: index!)
+      if !favId.contains(item) {
+        favId.append(item)
+      }
     } else {
+      if let index = favId.firstIndex(of: item) {
+        favId.remove(at: index)
+      }
+      
+//      favId = favId.filter{
+//        return $0 != item
+//      }
 //      print("isFav == false")
-      favId.append(item)
+
     }
     print(favId)
+    mTableView.reloadData()
 //    favInfo.removeAll()
-//    for i in favId{
-//      favInfo.append(((dataInfo[i-1])))
+//    for i in dataInfo{
+//      for j in favId {
+//        if i.id == j {
+//          favInfo.append(dataInfo[j-1])
+////          print(favInfo)
+//        }
+//      }
+////      print(i.id)
 //    }
   }
   

@@ -17,6 +17,7 @@ class DetailViewController: UIViewController, UICollectionViewDataSource,  UICol
   var idUser: Int = 0
   var pic: Picture!
   
+  
   @IBOutlet weak var raitingLabel: UILabel!
   @IBOutlet weak var detailLabel: UILabel!
   @IBOutlet weak var priceLabel: UILabel!
@@ -29,7 +30,6 @@ class DetailViewController: UIViewController, UICollectionViewDataSource,  UICol
     raitingLabel.text = "Raiting: \(raiting)"
     priceLabel.text = "Price: $\(price)"
     titleName.title = name
-    
     
     feedPicData()
     mCollectionView.delegate = self
@@ -61,5 +61,9 @@ extension DetailViewController {
     cell?.mCollectionImageView.loadImageUrl(pic[indexPath.row].url)
     
     return cell!
+  }
+  
+  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+//    print("Hello")
   }
 }

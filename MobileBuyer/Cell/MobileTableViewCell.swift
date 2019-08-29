@@ -12,7 +12,7 @@ import Foundation
 class MobileTableViewCell: UITableViewCell {
   
   var mImageStar:UIImage!
-  var isTapped:Bool!
+  var isFavorited: Bool!
   var mobileVC:MobileItemViewController!
   var index: Int!
   
@@ -35,23 +35,38 @@ class MobileTableViewCell: UITableViewCell {
   func setUpButtun(){
     starBtn.tintColor = UIColor.blue
     starBtn.addTarget(self, action: #selector(handleMarkFavorite), for: .touchUpInside)
-    self.isTapped = true
+    isFavorited = false
+  }
+  
+  func updateStar(isFav: Bool) {
+    if isFav {
+      mImageStar  = UIImage(named: "star-tap.png")!
+      starBtn.setImage(mImageStar, for: .normal)
+      isFavorited = true
+//      self.isTapped = false
+    } else {
+      isFavorited = false
+      mImageStar  = UIImage(named: "star.png")!
+      starBtn.setImage(mImageStar, for: .normal)
+//      self.isTapped = true
+    }
   }
   
   @objc
   func handleMarkFavorite() {
     //    print("fav index \(index ?? 0) is tapped")
-    print(mobileVC.dataInfo[index])
-    if isTapped {
-      mImageStar  = UIImage(named: "star-tap.png")!
-      starBtn.setImage(mImageStar, for: .normal)
-      self.isTapped = false
-    } else {
-      mImageStar  = UIImage(named: "star.png")!
-      starBtn.setImage(mImageStar, for: .normal)
-      self.isTapped = true
-    }
-      mobileVC.addCellToFavourite(cell: self, isFav: isTapped)
+//    print(mobileVC.dataInfo[index])
+//    if isTapped {
+////      mImageStar  = UIImage(named: "star-tap.png")!
+////      starBtn.setImage(mImageStar, for: .normal)
+//      self.isTapped = false
+//    } else {
+////      mImageStar  = UIImage(named: "star.png")!
+////      starBtn.setImage(mImageStar, for: .normal)
+//      self.isTapped = true
+//    }
+    isFavorited = !isFavorited
+    mobileVC.addCellToFavourite(cell: self, isFav: isFavorited)
   }
   
 //    @IBAction func favTapped(_ sender: Any) {
