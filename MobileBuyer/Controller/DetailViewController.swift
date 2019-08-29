@@ -41,7 +41,7 @@ class DetailViewController: UIViewController, UICollectionViewDataSource,  UICol
     
     FeedData.shared.getPicture(url: _url) { (result) in
       self.pic = result
-      print(result)
+//      print(result)
       self.mCollectionView.reloadData()
     }
   }

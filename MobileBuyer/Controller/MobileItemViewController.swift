@@ -17,10 +17,8 @@ class MobileItemViewController: UITableViewController {
   
   var info: Mobile!
   var dataInfo:[MobileElement] = []
-//  var favInfo:[MobileElement] = []
   var indexItem: Int = 0
   var favId:[Int] = []
-  var isFav: Bool!
   var isFavMode = false
   
   let _url = "https://scb-test-mobile.herokuapp.com/api/mobiles/"
@@ -34,22 +32,16 @@ class MobileItemViewController: UITableViewController {
     showSortAlert()
   }
   
-  //  @IBAction func starBtn(_ sender: Any) {
-  //    print("click star")
-  //  }
+  @IBAction func allBtn(_ sender: Any) {
+    isFavMode = false
+    mTableView.reloadData()
+    
+  }
   
-    @IBAction func allBtn(_ sender: Any) {
-//      print("all clicked")
-      isFavMode = false
-      mTableView.reloadData()
-      
-    }
-  
-    @IBAction func favBtn(_ sender: Any) {
-      print("fav clicked")
-      isFavMode = true
-      mTableView.reloadData()
-    }
+  @IBAction func favBtn(_ sender: Any) {
+    isFavMode = true
+    mTableView.reloadData()
+  }
   
   func feedData() {
     FeedData.shared.feed(url: _url) { (result) in
@@ -58,9 +50,9 @@ class MobileItemViewController: UITableViewController {
         self.dataInfo.append(newItem)
       }
       self.mTableView.reloadData()
-//      print (self.dataInfo.count)
     }
   }
+  
   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     if isFavMode {
       let displayFav = dataInfo.filter {
@@ -72,37 +64,35 @@ class MobileItemViewController: UITableViewController {
   }
   
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-    
     let cell = tableView.dequeueReusableCell(withIdentifier: "mobileCell") as? MobileTableViewCell
     
     if isFavMode {
-      
       let displayFav = dataInfo.filter {
         return favId.contains($0.id)
       }
-      
       let item = displayFav[indexPath.row]
-
       cell?.mobileVC = self
-      cell?.index = indexPath.row
-      cell?.nameLabel.text = item.name
-      cell?.detailLabel.text = item.mobileDescription
-      cell?.priceLabel.text = "Price: $\(item.price)"
-      cell?.raitingLabel.text = "Raiting: \(item.rating)"
-      cell?.ImageView.loadImageUrl(item.thumbImageURL)
+      //      cell?.index = indexPath.row
+      //      cell?.nameLabel.text = item.name
+      //      cell?.detailLabel.text = item.mobileDescription
+      //      cell?.priceLabel.text = "Price: $\(item.price)"
+      //      cell?.raitingLabel.text = "Raiting: \(item.rating)"
+      //      cell?.ImageView.loadImageUrl(item.thumbImageURL)
+      prepareData(item: item, cell: cell!, indexPath: indexPath)
       cell?.starBtn.isHidden = true
       
       return cell!
     } else {
       let item = self.dataInfo[indexPath.row]
+      //      cell?.mobileVC = self
+      //      cell?.index = indexPath.row
+      //      cell?.nameLabel.text = item.name
+      //      cell?.detailLabel.text = item.mobileDescription
+      //      cell?.priceLabel.text = "Price: $\(item.price)"
+      //      cell?.raitingLabel.text = "Raiting: \(item.rating)"
+      //      cell?.ImageView.loadImageUrl(item.thumbImageURL)
+      prepareData(item: item, cell: cell!, indexPath: indexPath)
       
-      cell?.mobileVC = self
-      cell?.index = indexPath.row
-      cell?.nameLabel.text = item.name
-      cell?.detailLabel.text = item.mobileDescription
-      cell?.priceLabel.text = "Price: $\(item.price)"
-      cell?.raitingLabel.text = "Raiting: \(item.rating)"
-      cell?.ImageView.loadImageUrl(item.thumbImageURL)
       cell?.starBtn.isHidden = false
       cell?.updateStar(isFav: favId.contains(item.id))
       
@@ -110,13 +100,22 @@ class MobileItemViewController: UITableViewController {
     }
   }
   
+  func prepareData(item: MobileElement,cell: MobileTableViewCell, indexPath: IndexPath){
+    cell.mobileVC = self
+    cell.index = indexPath.row
+    cell.nameLabel.text = item.name
+    cell.detailLabel.text = item.mobileDescription
+    cell.priceLabel.text = "Price: $\(item.price)"
+    cell.raitingLabel.text = "Raiting: \(item.rating)"
+    cell.ImageView.loadImageUrl(item.thumbImageURL)
+  }
+  
   func addCellToFavourite(cell: UITableViewCell, isFav: Bool) {
     let favCell = mTableView.indexPath(for: cell)
     let index = favCell?.row
     let item = dataInfo[index!].id
-//    print("favCell: \(favCell!)")
+    //    print("favCell: \(favCell!)")
     if isFav {
-//      print("isFav == true")
       if !favId.contains(item) {
         favId.append(item)
       }
@@ -124,25 +123,12 @@ class MobileItemViewController: UITableViewController {
       if let index = favId.firstIndex(of: item) {
         favId.remove(at: index)
       }
-      
-//      favId = favId.filter{
-//        return $0 != item
-//      }
-//      print("isFav == false")
-
+      //      favId = favId.filter{
+      //        return $0 != item
+      //      }
     }
     print(favId)
     mTableView.reloadData()
-//    favInfo.removeAll()
-//    for i in dataInfo{
-//      for j in favId {
-//        if i.id == j {
-//          favInfo.append(dataInfo[j-1])
-////          print(favInfo)
-//        }
-//      }
-////      print(i.id)
-//    }
   }
   
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -152,7 +138,7 @@ class MobileItemViewController: UITableViewController {
         vc.detail = item.mobileDescription
         vc.price = item.price
         vc.raiting = item.rating
-        vc.titleName.title = item.name
+        vc.name = item.name
         vc.idUser = item.id
       }
     }

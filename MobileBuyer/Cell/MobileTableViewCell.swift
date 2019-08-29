@@ -43,12 +43,10 @@ class MobileTableViewCell: UITableViewCell {
       mImageStar  = UIImage(named: "star-tap.png")!
       starBtn.setImage(mImageStar, for: .normal)
       isFavorited = true
-//      self.isTapped = false
     } else {
       isFavorited = false
       mImageStar  = UIImage(named: "star.png")!
       starBtn.setImage(mImageStar, for: .normal)
-//      self.isTapped = true
     }
   }
   
