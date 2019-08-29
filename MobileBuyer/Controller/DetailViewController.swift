@@ -15,8 +15,7 @@ class DetailViewController: UIViewController, UICollectionViewDataSource,  UICol
   var price: Double = 0.0
   var raiting: Double = 0.0
   var idUser: Int = 0
-  var pic: Picture!
-  
+  var pic: [PictureElement] = []
   
   @IBOutlet weak var raitingLabel: UILabel!
   @IBOutlet weak var detailLabel: UILabel!
@@ -41,29 +40,56 @@ class DetailViewController: UIViewController, UICollectionViewDataSource,  UICol
     
     FeedData.shared.getPicture(url: _url) { (result) in
       self.pic = result
-//      print(result)
+      //      print(result)
       self.mCollectionView.reloadData()
     }
   }
+  
+  func checkUrl() {
+    
+  }
+  
 }
 
 extension DetailViewController {
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    if let count = self.pic?.count {
-      return count
-    } else {
-      return 0
-    }
+    return self.pic.count
   }
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionCell", for: indexPath) as? DetailCollectionViewCell
-    cell?.mCollectionImageView.loadImageUrl(pic[indexPath.row].url)
+    
+    var item = self.pic[indexPath.row].url
+    
+    item = self.checkHTTP(url: item)
+    
+    print(item)
+    cell?.mCollectionImageView.loadImageUrl(item)
     
     return cell!
   }
   
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//    print("Hello")
+    //    print("Hello")
+  }
+  
+  func isValidHTTP(url:String) -> Bool{
+    let head1    = "((http|https)://)"
+    let head     = "([(w|W)]{3}+\\.)?"
+    let tail     = "\\.+[A-Za-z]{2,3}+(\\.)?+(/(.)*)?"
+    let urlRegEx = head1+head+"+(.)+"+tail
+    let httpTest = NSPredicate(format:"SELF MATCHES %@", urlRegEx)
+    return httpTest.evaluate(with: url)
+  }
+  
+  func checkHTTP(url:String) -> String{
+    var link:String = url
+    print(url)
+    if isValidHTTP(url: url){
+      //            print("correct")
+    } else {
+      link = "https://\(url)"
+    }
+    return link
   }
 }

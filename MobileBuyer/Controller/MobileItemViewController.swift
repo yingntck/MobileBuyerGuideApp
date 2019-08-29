@@ -15,7 +15,6 @@ class MobileItemViewController: UITableViewController {
   
   @IBOutlet weak var mTableView: UITableView!
   
-  var info: Mobile!
   var dataInfo:[MobileElement] = []
   var indexItem: Int = 0
   var favId:[Int] = []
@@ -71,26 +70,14 @@ class MobileItemViewController: UITableViewController {
         return favId.contains($0.id)
       }
       let item = displayFav[indexPath.row]
-      cell?.mobileVC = self
-      //      cell?.index = indexPath.row
-      //      cell?.nameLabel.text = item.name
-      //      cell?.detailLabel.text = item.mobileDescription
-      //      cell?.priceLabel.text = "Price: $\(item.price)"
-      //      cell?.raitingLabel.text = "Raiting: \(item.rating)"
-      //      cell?.ImageView.loadImageUrl(item.thumbImageURL)
+
       prepareData(item: item, cell: cell!, indexPath: indexPath)
       cell?.starBtn.isHidden = true
       
       return cell!
     } else {
       let item = self.dataInfo[indexPath.row]
-      //      cell?.mobileVC = self
-      //      cell?.index = indexPath.row
-      //      cell?.nameLabel.text = item.name
-      //      cell?.detailLabel.text = item.mobileDescription
-      //      cell?.priceLabel.text = "Price: $\(item.price)"
-      //      cell?.raitingLabel.text = "Raiting: \(item.rating)"
-      //      cell?.ImageView.loadImageUrl(item.thumbImageURL)
+      
       prepareData(item: item, cell: cell!, indexPath: indexPath)
       
       cell?.starBtn.isHidden = false

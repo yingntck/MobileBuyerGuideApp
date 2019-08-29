@@ -17,5 +17,3 @@ struct PictureElement: Codable {
     case url, id
   }
 }
-
-typealias Picture = [PictureElement]

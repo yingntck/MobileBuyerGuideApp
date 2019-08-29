@@ -21,5 +21,3 @@ struct MobileElement: Codable {
         case mobileDescription = "description"
     }
 }
-
-typealias Mobile = [MobileElement]

@@ -34,14 +34,14 @@ class FeedData{
     }
   }
   
-  func getPicture(url: String, completion: @escaping (Picture) -> Void) {
+  func getPicture(url: String, completion: @escaping ([PictureElement]) -> Void) {
     AF.request(URL(string: url)!, method: .get).responseJSON { response in
 //      print(response)
       switch response.result {
       case .success:
         do {
           let decoder = JSONDecoder()
-          let result = try decoder.decode(Picture.self, from: response.data!)
+          let result = try decoder.decode([PictureElement].self, from: response.data!)
           completion(result)
 //          print("success feed")
 //          print("sucess api \(response.description)")
