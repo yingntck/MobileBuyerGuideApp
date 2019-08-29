@@ -84,7 +84,7 @@ extension DetailViewController {
   
   func checkHTTP(url:String) -> String{
     var link:String = url
-    print(url)
+//    print(url)
     if isValidHTTP(url: url){
       //            print("correct")
     } else {
