@@ -9,18 +9,21 @@
 import Alamofire
 import Foundation
 
-class FeedData{
+class FeedData {
   
   static var shared = FeedData() // Single ton
+  var urlData = "https://scb-test-mobile.herokuapp.com/api/mobiles/"
+  var urlPicture = "https://scb-test-mobile.herokuapp.com/api/mobiles/%@/images//"
   
-  func feed(url: String, completion: @escaping ([MobileElement]) -> Void) {
-    AF.request(URL(string: url)!, method: .get).responseJSON { response in
+  
+  func feed(completion: @escaping ([MobileModel]) -> Void) {
+    AF.request(URL(string: urlData)!, method: .get).responseJSON { response in
       //      print(response)
       switch response.result {
       case .success:
         do {
           let decoder = JSONDecoder()
-          let result = try decoder.decode([MobileElement].self, from: response.data!)
+          let result = try decoder.decode([MobileModel].self, from: response.data!)
           completion(result)
           //          print("success")
         } catch {
@@ -34,14 +37,15 @@ class FeedData{
     }
   }
   
-  func getPicture(url: String, completion: @escaping ([PictureElement]) -> Void) {
-    AF.request(URL(string: url)!, method: .get).responseJSON { response in
+  func getPicture(id: String, completion: @escaping ([PictureModel]) -> Void) {
+    
+    AF.request(URL(string: String(format: urlPicture, id))!, method: .get).responseJSON { response in
 //      print(response)
       switch response.result {
       case .success:
         do {
           let decoder = JSONDecoder()
-          let result = try decoder.decode([PictureElement].self, from: response.data!)
+          let result = try decoder.decode([PictureModel].self, from: response.data!)
           completion(result)
 //          print("success feed")
 //          print("sucess api \(response.description)")

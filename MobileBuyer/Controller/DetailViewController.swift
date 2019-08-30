@@ -14,8 +14,9 @@ class DetailViewController: UIViewController, UICollectionViewDataSource,  UICol
   var detail: String?
   var price: Double = 0.0
   var rating: Double = 0.0
-  var idUser: Int = 0
-  var pic: [PictureElement] = []
+  var idUser: Int?
+  var mobileData: MobileModel?
+  var picture: [PictureModel] = []
   
   @IBOutlet weak var ratingLabel: UILabel!
   @IBOutlet weak var detailLabel: UILabel!
@@ -25,10 +26,11 @@ class DetailViewController: UIViewController, UICollectionViewDataSource,  UICol
   
   override func viewDidLoad() {
     super.viewDidLoad()
-    detailLabel.text = detail
-    ratingLabel.text = "Rating: \(rating)"
-    priceLabel.text = "Price: $\(price)"
-    titleName.title = name
+  
+    detailLabel.text = mobileData?.mobileDescription
+    ratingLabel.text = "Rating: \(mobileData?.rating ?? 0.00)"
+    priceLabel.text = "Price: $\(mobileData?.price ?? 0.00)"
+    titleName.title = mobileData?.name
     
     feedPicData()
     mCollectionView.delegate = self
@@ -36,12 +38,11 @@ class DetailViewController: UIViewController, UICollectionViewDataSource,  UICol
   }
   
   func feedPicData() {
-    let _url = "https://scb-test-mobile.herokuapp.com/api/mobiles/\(idUser)/images//"
-    
-    FeedData.shared.getPicture(url: _url) { (result) in
-      self.pic = result
-      //      print(result)
-      self.mCollectionView.reloadData()
+    if let num = mobileData?.id {
+      FeedData.shared.getPicture(id: "\(num)") { (result) in
+        self.picture = result
+        self.mCollectionView.reloadData()
+      }
     }
   }
   
@@ -66,13 +67,13 @@ class DetailViewController: UIViewController, UICollectionViewDataSource,  UICol
   }
   
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return pic.count
+    return picture.count
   }
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionCell", for: indexPath) as? DetailCollectionViewCell
     
-    var item = pic[indexPath.row].url
+    var item = picture[indexPath.row].url
     item = checkHTTP(url: item)
     cell?.mCollectionImageView.loadImageUrl(item)
     return cell!

@@ -17,7 +17,7 @@ class MobileItemViewController: UIViewController, UITableViewDelegate, UITableVi
   @IBOutlet weak var allButton: UIButton!
   @IBOutlet weak var favoriteButton: UIButton!
   
-  var dataInfo:[MobileElement] = []
+  var dataInfo:[MobileModel] = []
   var indexItem: Int = 0
   var favoriteID:[Int] = []
   var isFavMode = false
@@ -64,9 +64,9 @@ class MobileItemViewController: UIViewController, UITableViewDelegate, UITableVi
   }
   
   func feedData() {
-    FeedData.shared.feed(url: _url) { (result) in
+    FeedData.shared.feed { (result) in
       for i in result {
-        let newItem = MobileElement(rating: i.rating, id: i.id, thumbImageURL: i.thumbImageURL, price: i.price, brand: i.brand, name: i.name, mobileDescription: i.mobileDescription)
+        let newItem = MobileModel(rating: i.rating, id: i.id, thumbImageURL: i.thumbImageURL, price: i.price, brand: i.brand, name: i.name, mobileDescription: i.mobileDescription)
         self.dataInfo.append(newItem)
       }
       self.mTableView.reloadData()
@@ -126,7 +126,7 @@ class MobileItemViewController: UIViewController, UITableViewDelegate, UITableVi
     }
   }
   
-  func showData(item: MobileElement,cell: MobileTableViewCell, indexPath: IndexPath) {
+  func showData(item: MobileModel,cell: MobileTableViewCell, indexPath: IndexPath) {
     cell.mobileVC = self
     cell.nameLabel.text = item.name
     cell.detailLabel.text = item.mobileDescription
@@ -162,18 +162,10 @@ class MobileItemViewController: UIViewController, UITableViewDelegate, UITableVi
             return favoriteID.contains($0.id)
           }
           let item = displayFav[indexItem]
-          vc.detail = item.mobileDescription
-          vc.price = item.price
-          vc.rating = item.rating
-          vc.name = item.name
-          vc.idUser = item.id
+          vc.mobileData = item
         } else {
           let item = dataInfo[indexItem]
-          vc.detail = item.mobileDescription
-          vc.price = item.price
-          vc.rating = item.rating
-          vc.name = item.name
-          vc.idUser = item.id
+          vc.mobileData = item
         }
       }
     }

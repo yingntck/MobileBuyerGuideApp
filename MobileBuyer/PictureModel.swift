@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct PictureElement: Codable {
+struct PictureModel: Codable {
   let mobileID,id: Int
   let url: String
 

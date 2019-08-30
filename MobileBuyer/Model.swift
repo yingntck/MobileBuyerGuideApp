@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct MobileElement: Codable {
+struct MobileModel: Codable {
     let rating: Double
     let id: Int
     let thumbImageURL: String
