@@ -106,7 +106,7 @@
                         <outlet property="detailLabel" destination="Gx0-Ql-Hgy" id="MaN-lv-ez1"/>
                         <outlet property="mCollectionView" destination="m78-Fh-IPa" id="ybr-oc-WMA"/>
                         <outlet property="priceLabel" destination="rN1-jj-sFC" id="Bg3-yP-8Dh"/>
-                        <outlet property="raitingLabel" destination="bRg-UX-gWe" id="TZS-Z6-7Pc"/>
+                        <outlet property="ratingLabel" destination="bRg-UX-gWe" id="TZS-Z6-7Pc"/>
                         <outlet property="titleName" destination="tph-B7-7oc" id="x3b-UY-vZS"/>
                     </connections>
                 </viewController>

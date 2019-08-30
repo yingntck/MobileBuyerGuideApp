@@ -51,7 +51,7 @@
                                 <rect key="frame" x="0.0" y="124" width="414" height="772"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="mobileCell" rowHeight="143" id="kS5-Tb-3C3" userLabel="mobileCell" customClass="MobileTableViewCell" customModule="MobileBuyer" customModuleProvider="target">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" misplaced="YES" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="mobileCell" rowHeight="143" id="kS5-Tb-3C3" userLabel="mobileCell" customClass="MobileTableViewCell" customModule="MobileBuyer" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="143"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="kS5-Tb-3C3" id="m9h-7f-Tka">
@@ -122,7 +122,7 @@
                                             <outlet property="imageView" destination="AXp-0w-pii" id="f4b-aA-b9Z"/>
                                             <outlet property="nameLabel" destination="lN8-gn-fnY" id="QFt-vI-7ac"/>
                                             <outlet property="priceLabel" destination="fVV-08-PIf" id="oLe-IY-Tj6"/>
-                                            <outlet property="raitingLabel" destination="0ZW-y8-7K8" id="AAZ-ad-MUX"/>
+                                            <outlet property="ratingLabel" destination="0ZW-y8-7K8" id="AAZ-ad-MUX"/>
                                             <outlet property="starBtn" destination="uFh-YN-vLt" id="gqq-bF-YGg"/>
                                         </connections>
                                     </tableViewCell>
@@ -156,7 +156,6 @@
                         <outlet property="allButton" destination="VFt-V9-3vW" id="KXt-LV-HM0"/>
                         <outlet property="favoriteButton" destination="AVK-8P-c57" id="KpG-Sf-J20"/>
                         <outlet property="mTableView" destination="gMt-Fx-5Xa" id="yMr-f4-0s5"/>
-                        <outlet property="tabBar" destination="ciX-08-K2E" id="mNa-IM-IJc"/>
                         <segue destination="Tcd-A0-ykJ" kind="show" identifier="showDetail" id="jXW-Gt-2Kh"/>
                     </connections>
                 </viewController>

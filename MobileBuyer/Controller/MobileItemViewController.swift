@@ -16,13 +16,11 @@ class MobileItemViewController: UIViewController, UITableViewDelegate, UITableVi
   @IBOutlet weak var mTableView: UITableView!
   @IBOutlet weak var allButton: UIButton!
   @IBOutlet weak var favoriteButton: UIButton!
-  @IBOutlet weak var tabBar: UIView!
   
   var dataInfo:[MobileElement] = []
   var indexItem: Int = 0
   var favoriteID:[Int] = []
   var isFavMode = false
-  
   
   let _url = "https://scb-test-mobile.herokuapp.com/api/mobiles/"
   
@@ -114,14 +112,12 @@ class MobileItemViewController: UIViewController, UITableViewDelegate, UITableVi
         return favoriteID.contains($0.id)
       }
       let item = displayFav[indexPath.row]
-
       showData(item: item, cell: cell!, indexPath: indexPath)
       cell?.starBtn.isHidden = true
       
       return cell!
     } else {
       let item = dataInfo[indexPath.row]
-      
       showData(item: item, cell: cell!, indexPath: indexPath)
       cell?.updateStar(isFav: favoriteID.contains(item.id))
       cell?.starBtn.isHidden = false
@@ -135,47 +131,57 @@ class MobileItemViewController: UIViewController, UITableViewDelegate, UITableVi
     cell.nameLabel.text = item.name
     cell.detailLabel.text = item.mobileDescription
     cell.priceLabel.text = "Price: $\(item.price)"
-    cell.raitingLabel.text = "Raiting: \(item.rating)"
+    cell.ratingLabel.text = "Rating: \(item.rating)"
     cell.ImageView.loadImageUrl(item.thumbImageURL)
   }
   
   func addCellToFavourite(cell: UITableViewCell, isFav: Bool) {
     let favCell = mTableView.indexPath(for: cell)
-    let index = favCell?.row
-    let item = dataInfo[index!].id
-    //    print("favCell: \(favCell!)")
-    if isFav {
-      if !favoriteID.contains(item) {
-        favoriteID.append(item)
+    if let index = favCell?.row {
+      let item = dataInfo[index].id
+      //    print("favCell: \(favCell!)")
+      if isFav {
+        if !favoriteID.contains(item) {
+          favoriteID.append(item)
+        }
+      } else {
+        if let index = favoriteID.firstIndex(of: item) {
+          favoriteID.remove(at: index)
+        }
       }
-    } else {
-      if let index = favoriteID.firstIndex(of: item) {
-        favoriteID.remove(at: index)
-      }
-      //      favId = favId.filter{
-      //        return $0 != item
-      //      }
+      print(favoriteID)
+      mTableView.reloadData()
     }
-    print(favoriteID)
-    mTableView.reloadData()
   }
   
   override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
     if segue.identifier == "showDetail" {
       if let vc = segue.destination as? DetailViewController {
-        let item = dataInfo[indexItem]
-        vc.detail = item.mobileDescription
-        vc.price = item.price
-        vc.raiting = item.rating
-        vc.name = item.name
-        vc.idUser = item.id
+        if isFavMode {
+          let displayFav = dataInfo.filter {
+            return favoriteID.contains($0.id)
+          }
+          let item = displayFav[indexItem]
+          vc.detail = item.mobileDescription
+          vc.price = item.price
+          vc.rating = item.rating
+          vc.name = item.name
+          vc.idUser = item.id
+        } else {
+          let item = dataInfo[indexItem]
+          vc.detail = item.mobileDescription
+          vc.price = item.price
+          vc.rating = item.rating
+          vc.name = item.name
+          vc.idUser = item.id
+        }
       }
     }
   }
   
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     print("Selected Row: \(indexPath.row)")
-    self.mTableView.deselectRow(at: indexPath, animated: true)
+    mTableView.deselectRow(at: indexPath, animated: true)
     indexItem = indexPath.row
     performSegue(withIdentifier: "showDetail", sender: nil)
   }

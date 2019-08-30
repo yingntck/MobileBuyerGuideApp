@@ -20,7 +20,7 @@ class MobileTableViewCell: UITableViewCell {
   @IBOutlet weak var nameLabel: UILabel!
   @IBOutlet weak var detailLabel: UILabel!
   @IBOutlet weak var priceLabel: UILabel!
-  @IBOutlet weak var raitingLabel: UILabel!
+  @IBOutlet weak var ratingLabel: UILabel!
   @IBOutlet weak var starBtn: UIButton!
   
   override func awakeFromNib() {
@@ -52,22 +52,7 @@ class MobileTableViewCell: UITableViewCell {
   
   @objc
   func handleMarkFavorite() {
-    //    print("fav index \(index ?? 0) is tapped")
-//    print(mobileVC.dataInfo[index])
-//    if isTapped {
-////      mImageStar  = UIImage(named: "star-tap.png")!
-////      starBtn.setImage(mImageStar, for: .normal)
-//      self.isTapped = false
-//    } else {
-////      mImageStar  = UIImage(named: "star.png")!
-////      starBtn.setImage(mImageStar, for: .normal)
-//      self.isTapped = true
-//    }
     isFavorited = !isFavorited
     mobileVC.addCellToFavourite(cell: self, isFav: isFavorited)
   }
-  
-//    @IBAction func favTapped(_ sender: Any) {
-//      print("Fav")
-//    }
 }

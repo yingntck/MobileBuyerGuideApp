@@ -13,11 +13,11 @@ class DetailViewController: UIViewController, UICollectionViewDataSource,  UICol
   var name: String?
   var detail: String?
   var price: Double = 0.0
-  var raiting: Double = 0.0
+  var rating: Double = 0.0
   var idUser: Int = 0
   var pic: [PictureElement] = []
   
-  @IBOutlet weak var raitingLabel: UILabel!
+  @IBOutlet weak var ratingLabel: UILabel!
   @IBOutlet weak var detailLabel: UILabel!
   @IBOutlet weak var priceLabel: UILabel!
   @IBOutlet weak var mCollectionView: UICollectionView!
@@ -26,7 +26,7 @@ class DetailViewController: UIViewController, UICollectionViewDataSource,  UICol
   override func viewDidLoad() {
     super.viewDidLoad()
     detailLabel.text = detail
-    raitingLabel.text = "Raiting: \(raiting)"
+    ratingLabel.text = "Rating: \(rating)"
     priceLabel.text = "Price: $\(price)"
     titleName.title = name
     
@@ -64,28 +64,17 @@ class DetailViewController: UIViewController, UICollectionViewDataSource,  UICol
     }
     return link
   }
- 
-}
-
-extension DetailViewController {
+  
   func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-    return self.pic.count
+    return pic.count
   }
   
   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "collectionCell", for: indexPath) as? DetailCollectionViewCell
     
-    var item = self.pic[indexPath.row].url
-    
-    item = self.checkHTTP(url: item)
-    
-//    print(item)
+    var item = pic[indexPath.row].url
+    item = checkHTTP(url: item)
     cell?.mCollectionImageView.loadImageUrl(item)
-    
     return cell!
-  }
-  
-  func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    //    print("Hello")
   }
 }
