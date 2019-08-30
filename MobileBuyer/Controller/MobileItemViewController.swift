@@ -14,32 +14,55 @@ import Alamofire
 class MobileItemViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
   
   @IBOutlet weak var mTableView: UITableView!
+  @IBOutlet weak var allButton: UIButton!
+  @IBOutlet weak var favoriteButton: UIButton!
+  @IBOutlet weak var tabBar: UIView!
   
   var dataInfo:[MobileElement] = []
   var indexItem: Int = 0
   var favoriteID:[Int] = []
   var isFavMode = false
   
+  
   let _url = "https://scb-test-mobile.herokuapp.com/api/mobiles/"
   
   override func viewDidLoad() {
     super.viewDidLoad()
     feedData()
+    favoriteButton.addTarget(self, action: #selector(favoriteButtonTapped), for: .touchUpInside)
+    allButton.addTarget(self, action: #selector(allButtonTapped), for: .touchUpInside)
+    style()
   }
   
-  @IBAction func sortBtn(_ sender: Any) {
+  @IBAction func sortButton(_ sender: Any) {
     showSortAlert()
   }
   
-  @IBAction func allBtn(_ sender: Any) {
+  @objc func allButtonTapped() {
     isFavMode = false
+    allButton.setTitleColor(UIColor.black, for: .normal)
+    favoriteButton.setTitleColor(UIColor.lightGray, for: .normal)
     mTableView.reloadData()
-    
   }
   
-  @IBAction func favBtn(_ sender: Any) {
+  @objc func favoriteButtonTapped() {
+    print("fav tapped")
     isFavMode = true
+    allButton.setTitleColor(UIColor.lightGray, for: .normal)
+    favoriteButton.setTitleColor(UIColor.black, for: .normal)
     mTableView.reloadData()
+  }
+  
+  func style(){
+    bottomBorderTextField(btn: allButton)
+    bottomBorderTextField(btn: favoriteButton)
+  }
+  
+  func bottomBorderTextField(btn: UIButton) {
+    let bottomLine = CALayer()
+    bottomLine.frame = CGRect(x: 0.0, y: btn.frame.height - 1, width: btn.frame.width - 1, height: 3.0)
+    bottomLine.backgroundColor = UIColor.lightGray.cgColor
+    btn.layer.addSublayer(bottomLine)
   }
   
   func feedData() {
@@ -82,8 +105,6 @@ class MobileItemViewController: UIViewController, UITableViewDelegate, UITableVi
       }
     }
   }
-  
-  
   
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: "mobileCell") as? MobileTableViewCell

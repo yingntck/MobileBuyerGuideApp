@@ -65,9 +65,6 @@ class DetailViewController: UIViewController, UICollectionViewDataSource,  UICol
     return link
   }
  
-  
-  
-  
 }
 
 extension DetailViewController {
