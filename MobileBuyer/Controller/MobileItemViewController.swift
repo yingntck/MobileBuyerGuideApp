@@ -17,7 +17,7 @@ class MobileItemViewController: UITableViewController {
   
   var dataInfo:[MobileElement] = []
   var indexItem: Int = 0
-  var favId:[Int] = []
+  var favoriteID:[Int] = []
   var isFavMode = false
   
   let _url = "https://scb-test-mobile.herokuapp.com/api/mobiles/"
@@ -45,7 +45,7 @@ class MobileItemViewController: UITableViewController {
   func feedData() {
     FeedData.shared.feed(url: _url) { (result) in
       for i in result {
-        let newItem = MobileElement(rating: i.rating, id: i.id, thumbImageURL: i.thumbImageURL, price: i.price, brand: i.brand, name: i.name, mobileDescription: i.mobileDescription, isFav: false)
+        let newItem = MobileElement(rating: i.rating, id: i.id, thumbImageURL: i.thumbImageURL, price: i.price, brand: i.brand, name: i.name, mobileDescription: i.mobileDescription)
         self.dataInfo.append(newItem)
       }
       self.mTableView.reloadData()
@@ -54,42 +54,62 @@ class MobileItemViewController: UITableViewController {
   
   override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
     if isFavMode {
+      // check favid == datainfo.id
       let displayFav = dataInfo.filter {
-        return favId.contains($0.id)
+        return favoriteID.contains($0.id)
       }
       return displayFav.count
     }
     return dataInfo.count
   }
   
+  override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+    if isFavMode {
+      return true
+    } else {
+      return false
+    }
+  }
+  
+  override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+    if editingStyle == .delete {
+      if isFavMode {
+//        print("delete")
+        favoriteID.remove(at: indexPath.row)
+//        print(favoriteID)
+        mTableView.reloadData()
+      }
+    }
+  }
+  
+  
+  
   override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: "mobileCell") as? MobileTableViewCell
     
     if isFavMode {
       let displayFav = dataInfo.filter {
-        return favId.contains($0.id)
+        return favoriteID.contains($0.id)
       }
       let item = displayFav[indexPath.row]
 
-      prepareData(item: item, cell: cell!, indexPath: indexPath)
+      showData(item: item, cell: cell!, indexPath: indexPath)
       cell?.starBtn.isHidden = true
       
       return cell!
     } else {
-      let item = self.dataInfo[indexPath.row]
+      let item = dataInfo[indexPath.row]
       
-      prepareData(item: item, cell: cell!, indexPath: indexPath)
-      
+      showData(item: item, cell: cell!, indexPath: indexPath)
+      cell?.updateStar(isFav: favoriteID.contains(item.id))
       cell?.starBtn.isHidden = false
-      cell?.updateStar(isFav: favId.contains(item.id))
       
       return cell!
     }
   }
   
-  func prepareData(item: MobileElement,cell: MobileTableViewCell, indexPath: IndexPath){
+  func showData(item: MobileElement,cell: MobileTableViewCell, indexPath: IndexPath) {
     cell.mobileVC = self
-    cell.index = indexPath.row
     cell.nameLabel.text = item.name
     cell.detailLabel.text = item.mobileDescription
     cell.priceLabel.text = "Price: $\(item.price)"
@@ -103,18 +123,18 @@ class MobileItemViewController: UITableViewController {
     let item = dataInfo[index!].id
     //    print("favCell: \(favCell!)")
     if isFav {
-      if !favId.contains(item) {
-        favId.append(item)
+      if !favoriteID.contains(item) {
+        favoriteID.append(item)
       }
     } else {
-      if let index = favId.firstIndex(of: item) {
-        favId.remove(at: index)
+      if let index = favoriteID.firstIndex(of: item) {
+        favoriteID.remove(at: index)
       }
       //      favId = favId.filter{
       //        return $0 != item
       //      }
     }
-    print(favId)
+    print(favoriteID)
     mTableView.reloadData()
   }
   

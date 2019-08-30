@@ -8,7 +8,7 @@
 
 import UIKit
 
-class DetailViewController: UIViewController, UICollectionViewDataSource,  UICollectionViewDelegate{
+class DetailViewController: UIViewController, UICollectionViewDataSource,  UICollectionViewDelegate {
   
   var name: String?
   var detail: String?
@@ -45,9 +45,28 @@ class DetailViewController: UIViewController, UICollectionViewDataSource,  UICol
     }
   }
   
-  func checkUrl() {
-    
+  func isValidHTTP(url:String) -> Bool {
+    let heads    = "((http|https)://)"
+    let head     = "([(w|W)]{3}+\\.)?"
+    let tail     = "\\.+[A-Za-z]{2,3}+(\\.)?+(/(.)*)?"
+    let urlRegEx = heads+head+"+(.)+"+tail
+    let httpTest = NSPredicate(format:"SELF MATCHES %@", urlRegEx)
+    return httpTest.evaluate(with: url)
   }
+  
+  func checkHTTP(url:String) -> String {
+    var link:String = url
+    //    print(url)
+    if isValidHTTP(url: url){
+      //            print("correct")
+    } else {
+      link = "https://\(url)"
+    }
+    return link
+  }
+ 
+  
+  
   
 }
 
@@ -63,7 +82,7 @@ extension DetailViewController {
     
     item = self.checkHTTP(url: item)
     
-    print(item)
+//    print(item)
     cell?.mCollectionImageView.loadImageUrl(item)
     
     return cell!
@@ -71,25 +90,5 @@ extension DetailViewController {
   
   func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     //    print("Hello")
-  }
-  
-  func isValidHTTP(url:String) -> Bool{
-    let head1    = "((http|https)://)"
-    let head     = "([(w|W)]{3}+\\.)?"
-    let tail     = "\\.+[A-Za-z]{2,3}+(\\.)?+(/(.)*)?"
-    let urlRegEx = head1+head+"+(.)+"+tail
-    let httpTest = NSPredicate(format:"SELF MATCHES %@", urlRegEx)
-    return httpTest.evaluate(with: url)
-  }
-  
-  func checkHTTP(url:String) -> String{
-    var link:String = url
-//    print(url)
-    if isValidHTTP(url: url){
-      //            print("correct")
-    } else {
-      link = "https://\(url)"
-    }
-    return link
   }
 }

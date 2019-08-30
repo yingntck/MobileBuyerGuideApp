@@ -25,14 +25,14 @@ class MobileTableViewCell: UITableViewCell {
   
   override func awakeFromNib() {
     super.awakeFromNib()
-    setUpButtun()
+    setUpButton()
   }
   
   override func setSelected(_ selected: Bool, animated: Bool) {
     super.setSelected(selected, animated: animated)
   }
   
-  func setUpButtun(){
+  func setUpButton(){
     starBtn.tintColor = UIColor.blue
     starBtn.addTarget(self, action: #selector(handleMarkFavorite), for: .touchUpInside)
     isFavorited = false
