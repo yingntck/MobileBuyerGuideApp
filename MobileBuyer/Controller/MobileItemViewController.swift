@@ -11,7 +11,7 @@ import AlamofireImage
 import Alamofire
 
 
-class MobileItemViewController: UITableViewController {
+class MobileItemViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
   
   @IBOutlet weak var mTableView: UITableView!
   
@@ -52,18 +52,19 @@ class MobileItemViewController: UITableViewController {
     }
   }
   
-  override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    if isFavMode {
-      // check favid == datainfo.id
-      let displayFav = dataInfo.filter {
-        return favoriteID.contains($0.id)
-      }
-      return displayFav.count
-    }
-    return dataInfo.count
+  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if isFavMode {
+          // check favid == datainfo.id
+          let displayFav = dataInfo.filter {
+            return favoriteID.contains($0.id)
+          }
+          return displayFav.count
+        }
+        return dataInfo.count
   }
   
-  override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+  
+  func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
     if isFavMode {
       return true
     } else {
@@ -71,7 +72,7 @@ class MobileItemViewController: UITableViewController {
     }
   }
   
-  override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+  func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
     if editingStyle == .delete {
       if isFavMode {
 //        print("delete")
@@ -84,7 +85,7 @@ class MobileItemViewController: UITableViewController {
   
   
   
-  override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeueReusableCell(withIdentifier: "mobileCell") as? MobileTableViewCell
     
     if isFavMode {
@@ -151,7 +152,7 @@ class MobileItemViewController: UITableViewController {
     }
   }
   
-  override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     print("Selected Row: \(indexPath.row)")
     self.mTableView.deselectRow(at: indexPath, animated: true)
     indexItem = indexPath.row
